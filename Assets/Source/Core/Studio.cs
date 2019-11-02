@@ -6,23 +6,32 @@ using System.Runtime.Serialization;
 
 namespace DevIdle.Core
 {
-    [Flags]
-    public enum TimelineState
+    public enum Publisher
     {
-        None = 0,
-        Pause = 1
+        Minisoft,
+        Value
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Studio
     {
-        public Timeline Timeline
-        { get { return timeline; } }
+        public double Capital
+        { get { return capital; } }
 
         [JsonProperty]
-        private Timeline timeline = new Timeline();
+        public List<Worker> WorkerList = new List<Worker>();
 
-        private TimelineState pauseFlag;
+        [JsonProperty]
+        public List<Section> Sections = new List<Section>();
+
+        [JsonProperty]
+        public float MainBestScore = 32;
+
+        [JsonProperty]
+        public float SecondaryBestScore = 0;
+
+        [JsonProperty]
+        private double capital = 0;
 
         public Studio()
             : this(false)
@@ -36,27 +45,39 @@ namespace DevIdle.Core
             }
         }
 
+        public List<Worker> GetWorkers(bool all = true, WorkerType type = WorkerType.Neutral)
+        {
+            var workerList = new List<Worker>();
+
+            foreach (var section in Sections)
+            {
+                foreach (var worker in section.WorkerList)
+                {
+                    workerList.Add(worker);
+                }
+            }
+            foreach (var worker in WorkerList)
+            {
+                workerList.Add(worker);
+            }
+
+            if (!all)
+            {
+                workerList = (List<Worker>)workerList.Where((x) => x.Type == type);
+            }
+
+            return workerList;
+        }
+
         public void Init()
         { }
 
-        public void SetPause(TimelineState flag)
-        {
-            pauseFlag |= flag;
-        }
-
-        public void UnsetPause(TimelineState flag)
-        {
-            pauseFlag &= ~flag;
-        }
-
         public void Update(float delta)
         {
-            if (pauseFlag != TimelineState.None)
+            foreach (var section in Sections)
             {
-                return;
+                section.Update(delta);
             }
-
-            timeline.Update(delta);          
         }
     }
 }

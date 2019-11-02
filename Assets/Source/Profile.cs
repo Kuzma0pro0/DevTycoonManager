@@ -26,8 +26,8 @@ namespace DevIdle
         { get; set; } = new Other();
 
         [JsonProperty]
-        public Studio Studio
-        { get; set; } = new Studio();
+        public Player Player
+        { get; set; } = new Player();
 
         public Profile()
             : this(false)

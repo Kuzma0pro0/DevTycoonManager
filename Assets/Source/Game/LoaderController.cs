@@ -9,7 +9,7 @@ namespace DevIdle.Game
     {
         private void Start()
         {
-            StudioController.Instance.Studio = App.Profile.Studio;
+            PlayerController.Instance.Player = App.Profile.Player;
 
             Destroy(gameObject);
         }
