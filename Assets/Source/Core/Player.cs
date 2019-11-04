@@ -10,11 +10,6 @@ namespace DevIdle.Core
         Pause = 1
     }
 
-    public enum Rank
-    {
-        Genius
-    }
-
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Player
     {
@@ -65,7 +60,10 @@ namespace DevIdle.Core
             }
 
             timeline.Update(delta);
-            studio.Update(delta);
+
+            var time = timeline.CurrentGameTime.Time;
+
+            studio.Update(delta, time);
         }
     }
 }

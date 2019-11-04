@@ -6,10 +6,9 @@ using System.Runtime.Serialization;
 
 namespace DevIdle.Core
 {
-    public enum Publisher
+    public enum StudioTheme
     {
-        Minisoft,
-        Value
+        Khabarovsk
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -18,26 +17,38 @@ namespace DevIdle.Core
         public double Capital
         { get { return capital; } }
 
+        public double Technology
+        { get { return technology; } }
+
+        public double Design
+        { get { return design; } }
+
+        public StudioTheme Theme
+        { get { return theme; } }
+
         [JsonProperty]
-        public List<Worker> WorkerList = new List<Worker>();
+        private StudioTheme theme = StudioTheme.Khabarovsk;
 
         [JsonProperty]
         public List<Section> Sections = new List<Section>();
 
         [JsonProperty]
-        public float MainBestScore = 32;
-
-        [JsonProperty]
-        public float SecondaryBestScore = 0;
-
-        [JsonProperty]
         private double capital = 0;
+
+        [JsonProperty]
+        private double technology = 0;
+
+        [JsonProperty]
+        private double design = 0;
+
+        public delegate void Refresh();
+        public event Refresh OnRefresh;
 
         public Studio()
             : this(false)
         { }
 
-        public Studio(bool createNew)
+        public Studio(bool createNew, StudioTheme theme = StudioTheme.Khabarovsk)
         {
             if (createNew)
             {
@@ -45,25 +56,16 @@ namespace DevIdle.Core
             }
         }
 
-        public List<Worker> GetWorkers(bool all = true, WorkerType type = WorkerType.Neutral)
+        public List<Worker> GetWorkers()
         {
             var workerList = new List<Worker>();
 
             foreach (var section in Sections)
             {
-                foreach (var worker in section.WorkerList)
+                foreach (var worker in section.workerList)
                 {
                     workerList.Add(worker);
                 }
-            }
-            foreach (var worker in WorkerList)
-            {
-                workerList.Add(worker);
-            }
-
-            if (!all)
-            {
-                workerList = (List<Worker>)workerList.Where((x) => x.Type == type);
             }
 
             return workerList;
@@ -72,12 +74,76 @@ namespace DevIdle.Core
         public void Init()
         { }
 
-        public void Update(float delta)
+        public void Update(float delta, double time)
         {
             foreach (var section in Sections)
             {
-                section.Update(delta);
+                section.Update(time);
             }
+        }
+
+        public void AddTechnology(double balls)
+        {
+            technology += balls;
+
+#if DEBUG
+            if (double.IsNaN(technology))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+        }
+
+        public void AddDesign(double balls)
+        {
+            design += balls;
+
+#if DEBUG
+            if (double.IsNaN(design))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+        }
+
+        public bool EnsureCapital(double amount)
+        {
+            return capital >= amount;
+        }
+
+        public void AddMoney(double amount)
+        {
+            capital += amount;
+
+#if DEBUG
+            if (double.IsNaN(capital))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+        }
+
+        public bool TrySpendMoney(double amount)
+        {
+            if (EnsureCapital(amount))
+            {
+                SpendMoney(amount);
+                return true;
+            }
+
+            return false;
+        }
+
+        private void SpendMoney(double amount)
+        {
+            capital -= amount;
+
+#if DEBUG
+            if (double.IsNaN(capital))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
         }
     }
 }

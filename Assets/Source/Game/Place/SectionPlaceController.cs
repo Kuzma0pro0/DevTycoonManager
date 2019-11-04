@@ -6,6 +6,15 @@ using DevIdle.Core;
 
 namespace DevIdle.Game.Place
 {
+    [Serializable]
+    public class SectionStagePrefabInfo
+    {
+        [SerializeField]
+        public int Stage;
+        [SerializeField]
+        public GameObject Prefab;
+    }
+
     public class SectionPlaceController : MonoBehaviour
     {
         public Section CurrentSection
@@ -21,15 +30,9 @@ namespace DevIdle.Game.Place
                 Init();
             }
         }
+        private Section currentSection;
 
-        public Section currentSection;
-
-        private Studio studio;
-
-        private void Start()
-        {
-            studio = PlayerController.Instance.Player.Studio;
-        }
+        public List<SectionStagePrefabInfo> Stages = new List<SectionStagePrefabInfo>();
 
         public void Init()
         {
@@ -39,6 +42,11 @@ namespace DevIdle.Game.Place
         public void Refresh()
         {
 
+        }
+
+        private void OnDestroy()
+        {
+            currentSection.OnRefresh -= Refresh;
         }
     }
 }

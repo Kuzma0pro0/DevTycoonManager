@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using UnityEngine;
+using DevIdle.Core;
 
 namespace DevIdle
 {
@@ -31,7 +32,9 @@ namespace DevIdle
 
         #region Variables
 
-
+        [JsonProperty("sections")]
+        public Dictionary<SectionType, SectionConfig> SectionConfigs
+        { get; private set; } = new Dictionary<SectionType, SectionConfig>();
 
         #endregion
 
