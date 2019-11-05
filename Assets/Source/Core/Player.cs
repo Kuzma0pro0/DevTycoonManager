@@ -23,6 +23,9 @@ namespace DevIdle.Core
         private Timeline timeline = new Timeline();
 
         [JsonProperty]
+        public StudioTheme currentStudioTheme = StudioTheme.Khabarovsk;
+
+        [JsonProperty]
         private Studio studio = new Studio();
 
         private TimelineState pauseFlag;
@@ -35,7 +38,7 @@ namespace DevIdle.Core
         {
             if (createNew)
             {
-
+                studio = Config.Instance.ThemePresets.Preset[currentStudioTheme];
             }
         }
 

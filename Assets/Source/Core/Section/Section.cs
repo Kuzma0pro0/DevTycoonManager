@@ -9,6 +9,7 @@ namespace DevIdle.Core
 {
     public enum SectionType
     {
+        OpenSpace,
         Manager,
         Programmer,
         Artist,
@@ -18,9 +19,6 @@ namespace DevIdle.Core
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Section
     {
-        public SectionType Type
-        { get { return type; } }
-
         private Config.SectionConfig config
         { get { return Config.Instance.SectionConfigs[Type]; } }
 
@@ -36,7 +34,7 @@ namespace DevIdle.Core
         {
             get
             {
-                return workerList.Count >= config.MaxWorkersCount;
+                return WorkerList.Count >= config.MaxWorkersCount;
             }
         }
 
@@ -60,16 +58,19 @@ namespace DevIdle.Core
         { get { return level; } }
 
         public int Workers
-        { get { return workerList.Count; } }
+        { get { return WorkerList.Count; } }
 
         public int ExperienceLevel
         { get { return experienceLevel; } }
 
         [JsonProperty]
-        public List<Worker> workerList = new List<Worker>();
+        public bool Bought;
 
         [JsonProperty]
-        protected SectionType type;
+        public List<Worker> WorkerList = new List<Worker>();
+
+        [JsonProperty]
+        public SectionType Type;
 
         [JsonProperty]
         protected int level = 1;
@@ -83,6 +84,9 @@ namespace DevIdle.Core
         protected long designBank = 0;
         [JsonProperty]
         protected long bugBank = 0;
+
+        public Section()
+        { }
 
         public double GetTimeDelayGeneratingTechnologyBall()
         {
@@ -126,12 +130,12 @@ namespace DevIdle.Core
 
         public void Update(double time)
         {
-            if (!AtMaxBankBalls)
+            if (AtMaxBankBalls)
             {
                 return;
             }
 
-            foreach (var worker in workerList)
+            foreach (var worker in WorkerList)
             {
                 var bank = worker.CreateBall(
                     time,

@@ -37,7 +37,7 @@ namespace DevIdle
         {
             if (initAsNew)
             {
-                
+                Player = new Player(true);
             }
         }
     }

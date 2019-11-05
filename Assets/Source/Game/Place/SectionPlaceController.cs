@@ -46,7 +46,10 @@ namespace DevIdle.Game.Place
 
         private void OnDestroy()
         {
-            currentSection.OnRefresh -= Refresh;
+            if (currentSection != null)
+            {
+                currentSection.OnRefresh -= Refresh;
+            }
         }
     }
 }

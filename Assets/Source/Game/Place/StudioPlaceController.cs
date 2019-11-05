@@ -12,14 +12,14 @@ namespace DevIdle.Game.Place
         [SerializeField]
         public SectionType Type;
         [SerializeField]
-        public GameObject SpawnPoint;
-        [SerializeField]
         public SectionPlaceController Section;
     }
 
     public class StudioPlaceController : MonoBehaviour
     {
         private Studio studio;
+
+        public OpenSpacePlaceController OpenSpace;
 
         public List<SectionPrefabInfo> SectionsPlace = new List<SectionPrefabInfo>();
 

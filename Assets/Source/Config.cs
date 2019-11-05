@@ -36,6 +36,10 @@ namespace DevIdle
         public Dictionary<SectionType, SectionConfig> SectionConfigs
         { get; private set; } = new Dictionary<SectionType, SectionConfig>();
 
+        [JsonProperty("theme")]
+        public ThemePreset ThemePresets
+        { get; private set; } = new ThemePreset();
+
         #endregion
 
         public static void Reload()

@@ -43,7 +43,7 @@ namespace DevIdle.Game.Place
                 return;
             }
 
-            var info = StudioPrefabs.Single((x) => x.Theme == player.Studio.Theme);
+            var info = StudioPrefabs.Single((x) => x.Theme == player.currentStudioTheme);
 
             for (int i = 0; i < StudioContainer.transform.childCount; ++i)
             {

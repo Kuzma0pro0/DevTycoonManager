@@ -23,11 +23,8 @@ namespace DevIdle.Core
         public double Design
         { get { return design; } }
 
-        public StudioTheme Theme
-        { get { return theme; } }
-
         [JsonProperty]
-        private StudioTheme theme = StudioTheme.Khabarovsk;
+        public Section OpenSpace = new Section();
 
         [JsonProperty]
         public List<Section> Sections = new List<Section>();
@@ -36,25 +33,16 @@ namespace DevIdle.Core
         private double capital = 0;
 
         [JsonProperty]
-        private double technology = 0;
+        private long technology = 0;
 
         [JsonProperty]
-        private double design = 0;
+        private long design = 0;
 
         public delegate void Refresh();
         public event Refresh OnRefresh;
 
         public Studio()
-            : this(false)
         { }
-
-        public Studio(bool createNew, StudioTheme theme = StudioTheme.Khabarovsk)
-        {
-            if (createNew)
-            {
-
-            }
-        }
 
         public List<Worker> GetWorkers()
         {
@@ -62,7 +50,7 @@ namespace DevIdle.Core
 
             foreach (var section in Sections)
             {
-                foreach (var worker in section.workerList)
+                foreach (var worker in section.WorkerList)
                 {
                     workerList.Add(worker);
                 }
@@ -82,7 +70,7 @@ namespace DevIdle.Core
             }
         }
 
-        public void AddTechnology(double balls)
+        public void AddTechnology(long balls)
         {
             technology += balls;
 
@@ -94,7 +82,7 @@ namespace DevIdle.Core
 #endif
         }
 
-        public void AddDesign(double balls)
+        public void AddDesign(long balls)
         {
             design += balls;
 

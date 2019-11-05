@@ -9,7 +9,24 @@ namespace DevIdle
         [JsonObject]
         public class ThemePreset
         {
-
+            [JsonProperty("preset")]
+            public Dictionary<StudioTheme, Studio> Preset = new Dictionary<StudioTheme, Studio>()
+            {
+                { StudioTheme.Khabarovsk,
+                    new Studio
+                    {
+                        OpenSpace = new Section
+                            {
+                                Bought = true,
+                                Type = SectionType.OpenSpace,
+                                WorkerList = new List<Worker>
+                                {
+                                    new Worker()
+                                }
+                            }
+                    }
+                }
+            };
         }
 
         [JsonObject]
