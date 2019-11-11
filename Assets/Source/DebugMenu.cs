@@ -23,12 +23,6 @@ namespace DevIdle
         {
             return !Application.isPlaying;
         }
-
-        [MenuItem("Idle DevTycoon/Test/Clear Bank")]
-        public static void Test()
-        {
-            App.Profile.Player.Studio.Sections[0].ClearBallsBank(App.Profile.Player.Studio);
-        }
     }
 #endif
 }

@@ -5,7 +5,8 @@ namespace DevIdle
     public enum Environment
     {
         QA,
-        Production
+        Production,
+        Debug
     }
 
     public partial class App

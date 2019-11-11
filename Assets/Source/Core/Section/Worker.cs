@@ -13,6 +13,13 @@ namespace DevIdle.Core
         Speed
     }
 
+    public enum WorkerGender
+    {
+        Man,
+        Girl,
+        Other
+    }
+
     [Flags]
     public enum BallType
     {
@@ -23,8 +30,7 @@ namespace DevIdle.Core
 
     public class CreateBallsInfo
     {
-        public double TimeDelayGeneratingTechnologyBall;
-        public double TimeDelayGeneratingDesignBall;
+        public double TimeDelayGeneratingBall;
 
         public bool ChanceBugBall;
     }
@@ -34,6 +40,9 @@ namespace DevIdle.Core
     {
         [JsonProperty]
         public int idAvatar;
+
+        [JsonProperty]
+        public WorkerGender Gender;
 
         [JsonProperty]
         public float Energy = 100;
@@ -49,6 +58,16 @@ namespace DevIdle.Core
 
         public delegate void Refresh();
         public event Refresh OnRefresh;
+
+        public Worker()
+        {
+            Generate();
+        }
+
+        public void Generate()
+        {
+
+        }
 
         public bool IsLowEnergy()
         {
@@ -72,7 +91,8 @@ namespace DevIdle.Core
 
             if (time >= nextCreateTechnologyBall)
             {
-                nextCreateTechnologyBall = time + info.TimeDelayGeneratingTechnologyBall;
+                float inaccuracy = (float)info.TimeDelayGeneratingBall * 0.1f;
+                nextCreateTechnologyBall = time + info.TimeDelayGeneratingBall + UnityEngine.Random.Range(-inaccuracy, inaccuracy);
                 if (visualTechnology)
                 {
                     OnTechnologyball?.Invoke();
@@ -91,7 +111,8 @@ namespace DevIdle.Core
 
             if (time >= nextCreateDesignBall)
             {
-                nextCreateDesignBall = time + info.TimeDelayGeneratingDesignBall;
+                float inaccuracy = (float)info.TimeDelayGeneratingBall * 0.1f;
+                nextCreateDesignBall = time + info.TimeDelayGeneratingBall + UnityEngine.Random.Range(-inaccuracy, inaccuracy);
                 if (visualDesign)
                 {
                     OnDesignball?.Invoke();

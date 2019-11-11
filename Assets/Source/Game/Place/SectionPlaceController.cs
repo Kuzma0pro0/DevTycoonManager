@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DevIdle.Core;
+using DevIdle.Game.UI;
 
 namespace DevIdle.Game.Place
 {
@@ -34,6 +35,8 @@ namespace DevIdle.Game.Place
 
         public List<SectionStagePrefabInfo> Stages = new List<SectionStagePrefabInfo>();
 
+        public List<WorkerPlaceController> Workers = new List<WorkerPlaceController>();
+            
         public void Init()
         {
             currentSection.OnRefresh += Refresh;
@@ -42,6 +45,11 @@ namespace DevIdle.Game.Place
         public void Refresh()
         {
 
+        }
+
+        public void OpenScreen()
+        {
+            FindObjectOfType<UIController>().OpenScreen(ScreenType.Section, CurrentSection);
         }
 
         private void OnDestroy()

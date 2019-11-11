@@ -25,9 +25,16 @@ namespace DevIdle.Game.Place
 
         private void Start()
         {
-            studio = PlayerController.Instance.Player.Studio;        
+            studio = PlayerController.Instance.Player.Studio;
 
             studio.OnRefresh += Refresh;
+
+            Init();
+        }
+
+        private void Init()
+        {
+            OpenSpace.CurrentSection = studio.OpenSpace;
         }
 
         public void Refresh()

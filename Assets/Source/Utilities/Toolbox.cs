@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using DevIdle.Core;
 
 namespace DevIdle
 {
@@ -12,6 +13,11 @@ namespace DevIdle
         public static Sprite GetAvatar(int id)
         {
             return Resources.Load<Sprite>($"Sprites/Face/Man{id + 1}");
+        }
+
+        public static Sprite GetWorkerAvatar(WorkerGender gender, int id)
+        {
+            return Resources.Load<Sprite>($"Sprites/WorkerFace/{gender.ToString()}/{id + 1}");
         }
 
         public static string Localize(this string str)

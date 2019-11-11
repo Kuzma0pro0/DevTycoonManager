@@ -19,6 +19,7 @@ namespace DevIdle
                             {
                                 Bought = true,
                                 Type = SectionType.OpenSpace,
+                                CurrentBallType = BallType.Bug | BallType.Design | BallType.Technology,
                                 WorkerList = new List<Worker>
                                 {
                                     new Worker()
@@ -34,31 +35,16 @@ namespace DevIdle
         {
             [JsonProperty("unlock_level")]
             public int UnlockLevel;
-
-            [JsonProperty("multiplier")]
-            public double Multiplier;
         }
 
         [JsonObject]
         public class SectionConfig
         {
-            [JsonProperty("max_bank_balls")]
-            public double MaxBankBalls = 300;
-
             [JsonProperty("base_upgrade_price")]
             public double BaseUpgradePrice = 0;
 
             [JsonProperty("upgrade_price_grow_multiplier")]
             public double UpgradePriceGrowMultiplier;
-
-            [JsonProperty("base_production_value")]
-            public double BaseProdiction;
-
-            [JsonProperty("production_grow_multiplier")]
-            public double ProductionGrowMultiplier;
-
-            [JsonProperty("speed")]
-            public float BaseSpeed = 1;
 
             [JsonProperty("price")]
             public double Price = 0;
@@ -66,14 +52,23 @@ namespace DevIdle
             [JsonProperty("max_level")]
             public int MaxLevel = 1500;
 
-            [JsonProperty("salary_prices")]
-            public double[] SalaryPrices;
+            [JsonProperty("upgrade_ball_grow_multiplier")]
+            public double UpgradeBallGrowMultiplier = 1f;
 
-            [JsonProperty("speed_percentage_increase_per_salary_level")]
-            public float SpeedIncreasePerSalaryLevel = 0.05f;
+            [JsonProperty("base_ball_per_minute")]
+            public double BaseBallPerMinute = 10f;
 
-            [JsonProperty("max_salary_level")]
-            public int MaxSalaryLevel = 100;
+            [JsonProperty("base_bank_balls")]
+            public double BasePoolBalls = 300;
+
+            [JsonProperty("upgrade_pool_balls_grow_multiplier")]
+            public double UpgradePoolBallsGrowMultiplier;
+
+            [JsonProperty("experience_prices")]
+            public double[] ExperiencePrices;
+
+            [JsonProperty("max_experience_level")]
+            public int MaxExperienceLevel = 100;
 
             [JsonProperty("max_workers_count")]
             public int MaxWorkersCount = 5;
@@ -84,6 +79,5 @@ namespace DevIdle
             [JsonProperty("stages")]
             public StageConfig[] Stages = new StageConfig[0];
         }
-
     }
 }

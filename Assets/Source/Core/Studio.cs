@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using UnityEngine;
 
 namespace DevIdle.Core
 {
@@ -62,8 +63,33 @@ namespace DevIdle.Core
         public void Init()
         { }
 
+        public bool TryUpdateSection(Section section)
+        {
+            if (!Sections.Contains(section))
+            {
+                Debug.Log("Section not set");
+                return false;
+            }
+
+            var price = section.CalcUpgradePrice();
+            if (!EnsureCapital(price))
+            {
+                return false;
+            }
+
+            if (!section.TryUpgrade())
+            {
+                return false;
+            }
+
+            SpendMoney(price);
+            return true;
+        }
+
         public void Update(float delta, double time)
         {
+            OpenSpace.Update(time);
+                
             foreach (var section in Sections)
             {
                 section.Update(time);

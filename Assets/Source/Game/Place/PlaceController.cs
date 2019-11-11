@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using DevIdle.Core;
+using UnityEngine.UI;
 
 namespace DevIdle.Game.Place
 {
@@ -20,6 +21,8 @@ namespace DevIdle.Game.Place
         public static PlaceController Instance { get; private set; }
 
         private Player player;
+
+        public ScrollRect Scroll;
 
         public List<StudioPrefabInfo> StudioPrefabs = new List<StudioPrefabInfo>();
 
@@ -52,6 +55,7 @@ namespace DevIdle.Game.Place
 
             var prefab = Instantiate(info.Prefab, StudioContainer.transform);
             currentStudioPrefab = info.Theme;
+            Scroll.content = (RectTransform)prefab.gameObject.transform;
         }
     }
 }

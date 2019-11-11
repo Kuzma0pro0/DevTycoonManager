@@ -10,7 +10,6 @@ namespace DevIdle.Game.UI
         public event Action Closed;
         public event Func<bool> CanClose;
 
-        public bool CanDestroy = true;
         private bool isClosingCoroutineActive;
 
         public virtual void Init(params object[] param)
@@ -38,10 +37,7 @@ namespace DevIdle.Game.UI
             Closing = null;
             BeforeClosed();
 
-            if (CanDestroy)
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
 
         private void OnDestroy()
