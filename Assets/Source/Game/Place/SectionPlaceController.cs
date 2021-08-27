@@ -32,6 +32,7 @@ namespace DevIdle.Game.Place
             }
         }
         private Section currentSection;
+        public Studio Studio;
 
         public List<SectionStagePrefabInfo> Stages = new List<SectionStagePrefabInfo>();
 
@@ -47,9 +48,26 @@ namespace DevIdle.Game.Place
 
         }
 
-        public void OpenScreen()
+        public void Click()
+        {
+            if (CurrentSection.Bought)
+            {
+                OpenScreen();
+            }
+            else
+            {
+                OpenStudioScreen();
+            }
+        }
+
+        private void OpenScreen()
         {
             FindObjectOfType<UIController>().OpenScreen(ScreenType.Section, CurrentSection);
+        }
+
+        private void OpenStudioScreen() 
+        {
+            FindObjectOfType<UIController>().OpenScreen(ScreenType.Studio);
         }
 
         private void OnDestroy()

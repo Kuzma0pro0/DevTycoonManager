@@ -46,17 +46,17 @@ namespace DevIdle.Game
             {
                 case BallType.Technology:
                     {
-                        GetComponent<RectTransform>().localPosition = new Vector2(-9, 75);
+                        GetComponent<RectTransform>().localPosition = new Vector2(-30, 75);
                         break;
                     }
                 case BallType.Design:
                     {
-                        GetComponent<RectTransform>().localPosition = new Vector2(48, 75);
+                        GetComponent<RectTransform>().localPosition = new Vector2(30, 75);
                         break;
                     }
                 case BallType.Bug:
                     {
-                        GetComponent<RectTransform>().localPosition = new Vector2(18, 50);
+                        GetComponent<RectTransform>().localPosition = new Vector2(0, 50);
                         break;
                     }
             }

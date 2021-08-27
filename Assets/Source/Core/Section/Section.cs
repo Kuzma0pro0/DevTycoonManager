@@ -10,10 +10,10 @@ namespace DevIdle.Core
     public enum SectionType
     {
         OpenSpace,
-        Manager,
-        Programmer,
         Artist,
-        Tester
+        Programmer,
+        Tester,
+        Manager
     }
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -56,6 +56,14 @@ namespace DevIdle.Core
 
         public int Level
         { get { return level; } }
+
+        public (long technology, long design, long bug) GetBalls 
+        {
+            get 
+            {
+                return (technologyBank, designBank, bugBank);
+            }
+        }
 
         public int Workers
         { get { return WorkerList.Count; } }
@@ -201,8 +209,8 @@ namespace DevIdle.Core
 
         public delegate void Refresh();
         public event Refresh OnRefresh;
-        public delegate void Clear();
-        public event Clear OnClear;
+        public delegate void UpdateInformation();
+        public event Refresh OnUpdateInformation;
 
         public void ClearBallsBank(Studio studio)
         {
@@ -217,12 +225,15 @@ namespace DevIdle.Core
             technologyBank = 0;
             designBank = 0;
             bugBank = 0;
-
-            OnClear?.Invoke();
         }
 
         public void Update(double time)
         {
+            if (!Bought)
+            {
+                return;
+            }
+
             if (AtMaxBankBalls)
             {
                 return;
@@ -251,7 +262,9 @@ namespace DevIdle.Core
                 if (!AtMaxBankBalls)
                 {
                     bugBank += bank.Bug;
-                }                         
+                }
+
+                OnUpdateInformation?.Invoke();
             }
         }
     }

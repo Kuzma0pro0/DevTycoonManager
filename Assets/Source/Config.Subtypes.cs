@@ -22,9 +22,32 @@ namespace DevIdle
                                 CurrentBallType = BallType.Bug | BallType.Design | BallType.Technology,
                                 WorkerList = new List<Worker>
                                 {
+                                    new Worker(),
+                                    new Worker(),
+                                    new Worker()
+                                }
+                            },
+                        Sections =
+                        {
+                            new Section
+                            {
+                                Type = SectionType.Artist,
+                                CurrentBallType = BallType.Bug | BallType.Design,
+                                WorkerList = new List<Worker>
+                                {
+                                    new Worker()
+                                }
+                            },
+                            new Section
+                            {
+                                Type = SectionType.Programmer,
+                                CurrentBallType = BallType.Bug | BallType.Technology,
+                                WorkerList = new List<Worker>
+                                {
                                     new Worker()
                                 }
                             }
+                        }                       
                     }
                 }
             };

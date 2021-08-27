@@ -8,7 +8,8 @@ namespace DevIdle.Game.UI
     public enum ScreenType
     {
         None,
-        Section
+        Section,
+        Studio
     }
 
     [Serializable]

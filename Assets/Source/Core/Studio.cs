@@ -62,6 +62,34 @@ namespace DevIdle.Core
 
         public void Init()
         { }
+        public bool IsSectionBought(SectionType type)
+        {
+            if (type == SectionType.OpenSpace) 
+            {
+                return OpenSpace.Bought;
+            }
+
+            return Sections.Any((v) => v.Type == type && v.Bought);
+        }
+
+        public bool TryBuySection(SectionType type)
+        {
+            if (IsSectionBought(type))
+            {
+                Debug.Log($"Trying to buy already bought building type {type}.");
+                return false;
+            }
+
+            var config = Config.Instance.SectionConfigs[type];
+            if (!TrySpendMoney(config.Price))
+            {
+                return false;
+            }
+
+            OnRefresh?.Invoke();
+            Sections.Single((x) => x.Type == type).Bought = true;
+            return true;
+        }
 
         public bool TryUpdateSection(Section section)
         {

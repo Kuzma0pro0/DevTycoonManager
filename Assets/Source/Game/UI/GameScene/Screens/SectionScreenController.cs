@@ -80,6 +80,5 @@ namespace DevIdle.Game.UI
             ExperienceLevel.text = string.Format(experienceLevelLabelTemplate, section.ExperienceLevel);
             CountWorker.text = string.Format(countWorkerLabelTemplate, section.Workers, section.MaxWorker);
         }
-
     }
 }

@@ -35,6 +35,16 @@ namespace DevIdle.Game.Place
         private void Init()
         {
             OpenSpace.CurrentSection = studio.OpenSpace;
+            OpenSpace.Studio = studio;
+
+            foreach (var section in SectionsPlace)
+            {
+                if (studio.Sections.Any((x) => x.Type == section.Type))
+                {
+                    section.Section.CurrentSection = studio.Sections.Single((x) => x.Type == section.Type);
+                    section.Section.Studio = studio;
+                }
+            }
         }
 
         public void Refresh()
